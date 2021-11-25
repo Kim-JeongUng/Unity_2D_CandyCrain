@@ -13,8 +13,7 @@ public class TouchEvent : MonoBehaviour
     public Canvas canvas;
     GraphicRaycaster gr;
     PointerEventData ped;
-    RawImage img;
-
+    public GameObject Mirror;
     Game GameManager;
 
     void Start()
@@ -22,6 +21,7 @@ public class TouchEvent : MonoBehaviour
         gr = canvas.GetComponent<GraphicRaycaster>();
         ped = new PointerEventData(null);
         GameManager = this.GetComponent<Game>();
+        Mirror.SetActive(true);
     }
 
     void Update()
@@ -39,8 +39,6 @@ public class TouchEvent : MonoBehaviour
                 {
                     ClickSound.Play();
                 }
-                img = (RawImage)results[0].gameObject.GetComponent<RawImage>();
-
                 // 캔디 삭제
                 if (results[0].gameObject.CompareTag("Candies") && Game.SlotChild < Game.MaxSlot)
                 {
@@ -49,19 +47,28 @@ public class TouchEvent : MonoBehaviour
                 }
                 if (results[0].gameObject.CompareTag("Bomb"))
                 {
-                    GameManager.Bomb();
+                    GameManager.CheckBomb();
+                }
+                if (results[0].gameObject.CompareTag("Mirror")) // 아이템
+                {
+                    this.gameObject.GetComponent<Game>().UseMirror(results[0].gameObject);
                 }
                 if (results[0].gameObject.name == "Reload")
                 {
                     SceneManager.LoadScene("GameScene");
                 }
-                if (results[0].gameObject.name == "GoMenu")
+                if (results[0].gameObject.CompareTag("GoMenu"))
                 {
                     SceneManager.LoadScene("LobyScene");
                 }
 
+
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("LobyScene");
+        }
     }
 }

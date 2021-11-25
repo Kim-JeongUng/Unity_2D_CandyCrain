@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MapMaker : MonoBehaviour
 {
@@ -9,30 +10,26 @@ public class MapMaker : MonoBehaviour
     public Texture[] ChooseCandies;
     public GameObject pf_Candies;
     public GameObject Panel;
-    public Text Mode;
-    public Text Score;
-
-
-    private RawImage img;
+    public Text ModeText;
 
     // 맵 크기
-    private static int MaxCol = 6;
-    private static int MaxRow = 9;
+    public static int MaxCol = 6;
+    public static int MaxRow = 9;
     public GameObject[] ParentCol = new GameObject[MaxCol];
 
     // 랜덤 CandiesImg 설정
     private int RanIndex;
 
     private GameObject Candies;
+    private RawImage img;
 
-    public int level = 1;
+    public static int level = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         //선택한 레벨에 맞는 텍스쳐 생성 1레벨 : 4가지종류, 2레벨 : 5가지종류, 3레벨 : 6가지종류
-        level = PlayerPrefs.GetInt("level")+3;
-        Debug.Log(level);
+        level = PlayerPrefs.GetInt("level") + 3;
         int[] RanImgIndex = getRandomInt(level, 0, AllCandies.Length);
         ChooseCandies = new Texture[level];
         for (int i = 0; i < level; i++)
@@ -42,31 +39,48 @@ public class MapMaker : MonoBehaviour
         switch (level)
         {
             case 6:
-                Mode.text = "HARD";
+                ModeText.text = "HARD";
                 break;
             case 5:
-                Mode.text = "NORMAL";
+                ModeText.text = "NORMAL";
                 break;
             default:
-                Mode.text = "EASY";
+                ModeText.text = "EASY";
                 break;
-
         }
 
-        // 캔디 생성
+        // 맵 생성
+        int[] MinCheckCnt = new int[level];
+        for(int i=0; i<level; i++)
+        {
+            MinCheckCnt[i] = 0;
+        }
         for (int i = 0; i < MaxRow; i++)
         {
             for (int j = 0; j < MaxCol; j++)
             {
                 RanIndex = Random.Range(0, ChooseCandies.Length);
 
-                Candies = Instantiate(pf_Candies, new Vector2(ParentCol[j].transform.position.x, ParentCol[j].transform.position.y + (i * 142)), Quaternion.identity);
-                
+                Candies = Instantiate(pf_Candies, new Vector2(ParentCol[j].transform.position.x, ParentCol[j].transform.position.y + (i * 143)), Quaternion.identity);
+
                 img = (RawImage)Candies.GetComponent<RawImage>();
-                img.texture = (Texture)ChooseCandies[RanIndex]; 
+                img.texture = (Texture)ChooseCandies[RanIndex];
 
-                Candies.transform.SetParent(ParentCol[j].transform,false);
-
+                Candies.transform.SetParent(ParentCol[j].transform, false);
+                for (int k = 0; k < level; k++)
+                {
+                    if (img.texture.name == ChooseCandies[k].name)
+                    {
+                        MinCheckCnt[k]++;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < level; i++)
+        {
+            if (MinCheckCnt[i]<3) // 최소한 같은 이미지가 3개 이상 씩 나와야함
+            {
+                SceneManager.LoadScene("GameScene");
             }
         }
     }

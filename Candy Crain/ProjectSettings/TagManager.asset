@@ -9,6 +9,12 @@ TagManager:
   - Level1
   - Level2
   - Level3
+  - Reset
+  - RecordPanel
+  - Record
+  - GoMenu
+  - Mirror
+  - Help
   layers:
   - Default
   - TransparentFX
