@@ -9,9 +9,14 @@ public class Game : MonoBehaviour
     private GameObject Candies;
     public GameObject WinPanel;
     public GameObject LosePanel;
+    public GameObject InfinityPanel;
+
 
     public Text WinScore;
     public Text WinTimer;
+    public Text InfinityScore;
+    public Text InfinityTimer;
+
     public Text ScoreText;
 
     // 슬롯에 들어갈 수 있는 크기 제한
@@ -33,6 +38,9 @@ public class Game : MonoBehaviour
     public static float timer;
 
     bool isGame;
+
+    public MapMaker mapMaker;
+
     // Start is called before the first frame update
     void Start()
     { 
@@ -41,17 +49,20 @@ public class Game : MonoBehaviour
         timer = 0.0f;
         WinPanel.SetActive(false);
         LosePanel.SetActive(false);
+        InfinityPanel.SetActive(false);
+        mapMaker = this.GetComponent<MapMaker>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         // 슬롯의 갯수 확인
         SlotChild = Slot.transform.childCount;
 
         ScoreText.text = score.ToString();
         // 승리 확인
-        GameObject[] ParentCol = this.GetComponent<MapMaker>().ParentCol;
+        GameObject[] ParentCol = mapMaker.ParentCol;
         for (int i=0; i< ParentCol.Length; i++)
         {
             if(ParentCol[i].transform.childCount != 0)
@@ -106,8 +117,25 @@ public class Game : MonoBehaviour
         Candies.GetComponent<BoxCollider2D>().enabled = true;
         Candies.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
-        Destroy(results.gameObject); 
+        GameObject Presult = results.transform.parent.gameObject;
+        Destroy(results.gameObject);
+
+        if (PlayerPrefs.GetInt("Mode") == 2) // 인피니티모드
+        {
+            int RanIndex = Random.Range(0, mapMaker.ChooseCandies.Length);
+            foreach(Transform tf in Presult.transform.GetComponentInChildren<RectTransform>())
+            {
+                tf.localPosition += new Vector3(0, 143.0f, 0);
+                
+            }
+            Candies = Instantiate(mapMaker.pf_Candies, Presult.transform.position, Quaternion.identity, Presult.transform);
+
+            img = (RawImage)Candies.GetComponent<RawImage>();
+            img.texture = (Texture)mapMaker.ChooseCandies[RanIndex];
+        }
+
     }
+
 
     // 폭발
     public void CheckBomb()
@@ -177,18 +205,45 @@ public class Game : MonoBehaviour
         WinTimer.text = timer.ToString("F1");
 
         // 데이터 저장
-        if (!PlayerPrefs.HasKey("score" + MapMaker.level) || PlayerPrefs.GetInt("score" + MapMaker.level) < score)
-        {
-            PlayerPrefs.SetInt("score" + MapMaker.level, score);
-            PlayerPrefs.SetString("timer" + MapMaker.level, timer.ToString("F1"));
-            Debug.Log(MapMaker.level);
+        if(PlayerPrefs.GetInt("Mode")==1)
+        { 
+            if (!PlayerPrefs.HasKey("score" + MapMaker.level) || PlayerPrefs.GetInt("score" + MapMaker.level) < score)
+            {
+                PlayerPrefs.SetInt("score" + MapMaker.level, score);
+                PlayerPrefs.SetString("timer" + MapMaker.level, timer.ToString("F1"));
+            }
         }
+        
 
     }
     public void LoseGame()
     {
         isGame = false;
-        LosePanel.SetActive(true);
         Audio.PlayOneShot(LoseSound);
+        if (PlayerPrefs.GetInt("Mode") == 1)
+        {
+            LosePanel.SetActive(true);
+        }
+
+        else if (PlayerPrefs.GetInt("Mode") == 2) //무한모드
+        {
+            InfinityEnd();
+        }
+    }
+
+
+    public void InfinityEnd()
+    {
+        isGame = false;
+        InfinityPanel.SetActive(true);
+
+        InfinityScore.text = score.ToString();
+        InfinityTimer.text = timer.ToString("F1");
+
+        if (!PlayerPrefs.HasKey("scoreInfinity") || PlayerPrefs.GetInt("scoreInfinity") < score)
+        {
+            PlayerPrefs.SetInt("scoreInfinity", score);
+            PlayerPrefs.SetString("timerInfinity", timer.ToString("F1"));
+        }
     }
 }

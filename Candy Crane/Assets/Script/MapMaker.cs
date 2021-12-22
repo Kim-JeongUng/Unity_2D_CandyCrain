@@ -36,18 +36,26 @@ public class MapMaker : MonoBehaviour
         {
             ChooseCandies[i] = AllCandies[RanImgIndex[i]];
         }
-        switch (level)
+        if (PlayerPrefs.GetInt("Mode") == 1)
         {
-            case 6:
-                ModeText.text = "HARD";
-                break;
-            case 5:
-                ModeText.text = "NORMAL";
-                break;
-            default:
-                ModeText.text = "EASY";
-                break;
+            switch (level)
+            {
+                case 6:
+                    ModeText.text = "HARD";
+                    break;
+                case 5:
+                    ModeText.text = "NORMAL";
+                    break;
+                default:
+                    ModeText.text = "EASY";
+                    break;
+            }
         }
+        else if(PlayerPrefs.GetInt("Mode") == 2)
+        {
+            ModeText.text = "INFINITY";
+        }
+
 
         // 맵 생성
         int[] MinCheckCnt = new int[level];
@@ -55,9 +63,9 @@ public class MapMaker : MonoBehaviour
         {
             MinCheckCnt[i] = 0;
         }
-        for (int i = 0; i < MaxRow; i++)
+        for (int i = MaxRow-1; i >= 0; i--)
         {
-            for (int j = 0; j < MaxCol; j++)
+            for (int j = MaxCol-1; j >= 0; j--)
             {
                 RanIndex = Random.Range(0, ChooseCandies.Length);
 

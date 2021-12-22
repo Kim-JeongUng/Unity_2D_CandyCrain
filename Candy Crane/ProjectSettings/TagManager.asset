@@ -15,6 +15,7 @@ TagManager:
   - GoMenu
   - Mirror
   - Help
+  - InfinityMode
   layers:
   - Default
   - TransparentFX

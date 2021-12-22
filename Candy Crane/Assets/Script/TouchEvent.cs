@@ -43,7 +43,8 @@ public class TouchEvent : MonoBehaviour
                 if (results[0].gameObject.CompareTag("Candies") && Game.SlotChild < Game.MaxSlot)
                 {
                     // 클릭된 칼럼의 상단에 있는 캔디 제거
-                    GameManager.SlotSpawn(results[0].gameObject.transform.parent.GetChild(results[0].gameObject.transform.parent.childCount - 1).gameObject);
+                    GameManager.SlotSpawn(results[0].gameObject.transform.parent.GetChild(0).gameObject);
+                    
                 }
                 if (results[0].gameObject.CompareTag("Bomb"))
                 {

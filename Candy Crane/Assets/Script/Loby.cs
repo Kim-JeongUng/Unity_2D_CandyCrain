@@ -52,18 +52,28 @@ public class Loby : MonoBehaviour
                 if (results[0].gameObject.CompareTag("Level1"))
                 {
                     PlayerPrefs.SetInt("level", 1);
+                    PlayerPrefs.SetInt("Mode", 1);
                     SceneManager.LoadScene("GameScene");
                 }
                 if (results[0].gameObject.CompareTag("Level2"))
                 {
                     PlayerPrefs.SetInt("level", 2);
+                    PlayerPrefs.SetInt("Mode", 1);
                     SceneManager.LoadScene("GameScene");
                 }
                 if (results[0].gameObject.CompareTag("Level3"))
                 {
                     PlayerPrefs.SetInt("level", 3);
+                    PlayerPrefs.SetInt("Mode", 1);
                     SceneManager.LoadScene("GameScene");
                 }
+                if (results[0].gameObject.CompareTag("InfinityMode"))
+                {
+                    PlayerPrefs.SetInt("level", 1);
+                    PlayerPrefs.SetInt("Mode", 2);
+                    SceneManager.LoadScene("GameScene");
+                }
+
                 if (results[0].gameObject.CompareTag("Record"))
                 {
                     RecordPanel.SetActive(true);
@@ -89,8 +99,16 @@ public class Loby : MonoBehaviour
     {
         for (int i = 0; i < ScoreText.Length; i++)
         {
-            ScoreText[i].text = PlayerPrefs.GetInt("score" + (i + 4)).ToString();
-            TimerText[i].text = PlayerPrefs.GetString("timer" + (i + 4)).ToString();
+            if (i<3)
+            {
+                ScoreText[i].text = PlayerPrefs.GetInt("score" + (i + 4)).ToString();
+                TimerText[i].text = PlayerPrefs.GetString("timer" + (i + 4)).ToString();
+            }
+            else if (i == 3) // 무한 모드
+            {
+                ScoreText[i].text = PlayerPrefs.GetInt("scoreInfinity").ToString();
+                TimerText[i].text = PlayerPrefs.GetString("timerInfinity").ToString();
+            }
         }
     }
     public void ResetData()
