@@ -25,6 +25,7 @@ public class MapMaker : MonoBehaviour
 
     public static int level = 1;
 
+    public bool RunningTimeAttack = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,42 +56,53 @@ public class MapMaker : MonoBehaviour
         {
             ModeText.text = "INFINITY";
         }
-
-
-        // 맵 생성
-        int[] MinCheckCnt = new int[level];
-        for(int i=0; i<level; i++)
+        else if (PlayerPrefs.GetInt("Mode") == 3)
         {
-            MinCheckCnt[i] = 0;
+            ModeText.text = "TIME ATTACK";
         }
-        for (int i = MaxRow-1; i >= 0; i--)
-        {
-            for (int j = MaxCol-1; j >= 0; j--)
+
+
+        if (PlayerPrefs.GetInt("Mode") != 3) {
+            // 맵 생성
+            int[] MinCheckCnt = new int[level];
+            for (int i = 0; i < level; i++)
             {
-                RanIndex = Random.Range(0, ChooseCandies.Length);
-
-                Candies = Instantiate(pf_Candies, new Vector2(ParentCol[j].transform.position.x, ParentCol[j].transform.position.y + (i * 143)), Quaternion.identity);
-
-                img = (RawImage)Candies.GetComponent<RawImage>();
-                img.texture = (Texture)ChooseCandies[RanIndex];
-
-                Candies.transform.SetParent(ParentCol[j].transform, false);
-                for (int k = 0; k < level; k++)
+                MinCheckCnt[i] = 0;
+            }
+            for (int i = MaxRow - 1; i >= 0; i--)
+            {
+                for (int j = MaxCol - 1; j >= 0; j--)
                 {
-                    if (img.texture.name == ChooseCandies[k].name)
+                    RanIndex = Random.Range(0, ChooseCandies.Length);
+
+                    Candies = Instantiate(pf_Candies, new Vector2(ParentCol[j].transform.position.x, ParentCol[j].transform.position.y + (i * 143)), Quaternion.identity);
+
+                    img = (RawImage)Candies.GetComponent<RawImage>();
+                    img.texture = (Texture)ChooseCandies[RanIndex];
+
+                    Candies.transform.SetParent(ParentCol[j].transform, false);
+                    for (int k = 0; k < level; k++)
                     {
-                        MinCheckCnt[k]++;
+                        if (img.texture.name == ChooseCandies[k].name)
+                        {
+                            MinCheckCnt[k]++;
+                        }
                     }
                 }
             }
-        }
-        for (int i = 0; i < level; i++)
-        {
-            if (MinCheckCnt[i]<3) // 최소한 같은 이미지가 3개 이상 씩 나와야함
+            for (int i = 0; i < level; i++)
             {
-                SceneManager.LoadScene("GameScene");
+                if (MinCheckCnt[i] < 3) // 최소한 같은 이미지가 3개 이상 씩 나와야함
+                {
+                    SceneManager.LoadScene("GameScene");
+                }
             }
         }
+        else if(PlayerPrefs.GetInt("Mode") == 3) { // 타임 어택 모드
+            RunningTimeAttack = true;
+            StartCoroutine("TimeAttack");
+        }
+
     }
 
     // Update is called once per frame
@@ -99,6 +111,36 @@ public class MapMaker : MonoBehaviour
 
     }
 
+    IEnumerator TimeAttack()
+    {
+        float speedLevel = 5.0f;
+        while (RunningTimeAttack)
+        {
+            for (int i = MaxCol - 1; i >= 0; i--)
+            {
+                if (ParentCol[i].transform.childCount >= MaxRow-1)
+                {
+                    RunningTimeAttack = false;
+                }
+
+                int RanIndex = Random.Range(0, ChooseCandies.Length);
+
+                foreach (Transform tf in ParentCol[i].transform.GetComponentInChildren<RectTransform>())
+                {
+                    tf.localPosition += new Vector3(0, 143.0f, 0);
+
+                }
+                Candies = Instantiate(pf_Candies, ParentCol[i].transform.position, Quaternion.identity, ParentCol[i].transform);
+
+                img = (RawImage)Candies.GetComponent<RawImage>();
+                img.texture = (Texture)ChooseCandies[RanIndex];
+            }
+            if ( speedLevel > 1.5f)
+                speedLevel *= 0.95f;
+
+            yield return new WaitForSeconds(speedLevel);
+        }
+    }
 
     public int[] getRandomInt(int length, int min, int max)
     {

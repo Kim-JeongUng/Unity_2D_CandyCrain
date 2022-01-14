@@ -106,6 +106,10 @@ public class Game : MonoBehaviour
                 LoseGame();
             }
         }
+        if (!mapMaker.RunningTimeAttack && PlayerPrefs.GetInt("Mode") == 3) // 인피니티 모드 게임종료
+        {
+            LoseGame();
+        }
         if (isGame == true)
             timer += Time.deltaTime;
     }
@@ -229,10 +233,30 @@ public class Game : MonoBehaviour
         {
             InfinityEnd();
         }
+        else if (PlayerPrefs.GetInt("Mode") == 3) //무한모드
+        {
+            InfinityEnd();
+            mapMaker.StopCoroutine("TimeAttack");
+        }
     }
 
 
     public void InfinityEnd()
+    {
+        isGame = false;
+        InfinityPanel.SetActive(true);
+
+        InfinityScore.text = score.ToString();
+        InfinityTimer.text = timer.ToString("F1");
+
+        if (!PlayerPrefs.HasKey("scoreInfinity") || PlayerPrefs.GetInt("scoreInfinity") < score)
+        {
+            PlayerPrefs.SetInt("scoreInfinity", score);
+            PlayerPrefs.SetString("timerInfinity", timer.ToString("F1"));
+        }
+    }
+
+    public void TimeAttackEnd()
     {
         isGame = false;
         InfinityPanel.SetActive(true);

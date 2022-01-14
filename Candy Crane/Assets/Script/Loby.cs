@@ -69,8 +69,14 @@ public class Loby : MonoBehaviour
                 }
                 if (results[0].gameObject.CompareTag("InfinityMode"))
                 {
-                    PlayerPrefs.SetInt("level", 1);
+                    PlayerPrefs.SetInt("level", 3);
                     PlayerPrefs.SetInt("Mode", 2);
+                    SceneManager.LoadScene("GameScene");
+                }
+                if (results[0].gameObject.CompareTag("TimeAttack"))
+                {
+                    PlayerPrefs.SetInt("level", 2);
+                    PlayerPrefs.SetInt("Mode", 3);
                     SceneManager.LoadScene("GameScene");
                 }
 

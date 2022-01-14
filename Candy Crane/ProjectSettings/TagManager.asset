@@ -16,6 +16,7 @@ TagManager:
   - Mirror
   - Help
   - InfinityMode
+  - TimeAttack
   layers:
   - Default
   - TransparentFX
