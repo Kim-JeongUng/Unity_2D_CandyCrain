@@ -17,6 +17,7 @@ TagManager:
   - Help
   - InfinityMode
   - TimeAttack
+  - ClassicMode
   layers:
   - Default
   - TransparentFX

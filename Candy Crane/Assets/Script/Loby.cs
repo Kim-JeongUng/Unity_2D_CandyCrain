@@ -49,6 +49,23 @@ public class Loby : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 ClickSound.Play();
+                if (results[0].gameObject.CompareTag("ClassicMode"))
+                {
+                    if (!results[0].gameObject.transform.Find("Panel").gameObject.activeSelf) // 클릭 false 상태 일 때
+                    {
+                        results[0].gameObject.transform.Find("Panel").gameObject.SetActive(true);
+                        canvas.transform.Find("Infinity").localPosition = new Vector3(-408, -236, 0);
+                        canvas.transform.Find("TimeAttack").localPosition = new Vector3(-408, -385, 0);
+
+
+                    }
+                    else
+                    {
+                        results[0].gameObject.transform.Find("Panel").gameObject.SetActive(false);
+                        canvas.transform.Find("Infinity").localPosition = new Vector3(-408, 21, 0);
+                        canvas.transform.Find("TimeAttack").localPosition = new Vector3(-408, -128, 0);
+                    }
+                }
                 if (results[0].gameObject.CompareTag("Level1"))
                 {
                     PlayerPrefs.SetInt("level", 1);

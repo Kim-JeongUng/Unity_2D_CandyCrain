@@ -113,7 +113,7 @@ public class MapMaker : MonoBehaviour
 
     IEnumerator TimeAttack()
     {
-        float speedLevel = 5.0f;
+        float speedLevel = 4.0f;
         while (RunningTimeAttack)
         {
             for (int i = MaxCol - 1; i >= 0; i--)
@@ -135,7 +135,7 @@ public class MapMaker : MonoBehaviour
                 img = (RawImage)Candies.GetComponent<RawImage>();
                 img.texture = (Texture)ChooseCandies[RanIndex];
             }
-            if ( speedLevel > 1.5f)
+            if ( speedLevel > 2.5f)
                 speedLevel *= 0.95f;
 
             yield return new WaitForSeconds(speedLevel);
