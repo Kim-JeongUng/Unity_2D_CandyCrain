@@ -68,32 +68,32 @@ public class Loby : MonoBehaviour
                 }
                 if (results[0].gameObject.CompareTag("Level1"))
                 {
-                    PlayerPrefs.SetInt("level", 1);
                     PlayerPrefs.SetInt("Mode", 1);
+                    PlayerPrefs.SetInt("level", 1);
                     SceneManager.LoadScene("GameScene");
                 }
                 if (results[0].gameObject.CompareTag("Level2"))
                 {
-                    PlayerPrefs.SetInt("level", 2);
                     PlayerPrefs.SetInt("Mode", 1);
+                    PlayerPrefs.SetInt("level", 2);
                     SceneManager.LoadScene("GameScene");
                 }
                 if (results[0].gameObject.CompareTag("Level3"))
                 {
-                    PlayerPrefs.SetInt("level", 3);
                     PlayerPrefs.SetInt("Mode", 1);
+                    PlayerPrefs.SetInt("level", 3);
                     SceneManager.LoadScene("GameScene");
                 }
                 if (results[0].gameObject.CompareTag("InfinityMode"))
                 {
-                    PlayerPrefs.SetInt("level", 3);
                     PlayerPrefs.SetInt("Mode", 2);
+                    PlayerPrefs.SetInt("level", 3);
                     SceneManager.LoadScene("GameScene");
                 }
                 if (results[0].gameObject.CompareTag("TimeAttack"))
                 {
-                    PlayerPrefs.SetInt("level", 2);
                     PlayerPrefs.SetInt("Mode", 3);
+                    PlayerPrefs.SetInt("level", 2);
                     SceneManager.LoadScene("GameScene");
                 }
 
@@ -132,14 +132,15 @@ public class Loby : MonoBehaviour
                 ScoreText[i].text = PlayerPrefs.GetInt("scoreInfinity").ToString();
                 TimerText[i].text = PlayerPrefs.GetString("timerInfinity").ToString();
             }
+            else if (i == 4) // 타임어택 모드
+            {
+                ScoreText[i].text = PlayerPrefs.GetInt("scoreTimeAttack").ToString();
+                TimerText[i].text = PlayerPrefs.GetString("timerTimeAttack").ToString();
+            }
         }
     }
     public void ResetData()
     {
-        for (int i = 0; i < ScoreText.Length; i++)
-        {
-            PlayerPrefs.SetInt("score" + (i + 4), 0);
-            PlayerPrefs.SetString("timer" + (i + 4), 0.0f.ToString("F1"));
-        }
+        PlayerPrefs.DeleteAll();
     }
 }

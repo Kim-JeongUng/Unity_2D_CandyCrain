@@ -9,13 +9,13 @@ public class Game : MonoBehaviour
     private GameObject Candies;
     public GameObject WinPanel;
     public GameObject LosePanel;
-    public GameObject InfinityPanel;
 
+    public GameObject ModeEndPanel;
 
     public Text WinScore;
     public Text WinTimer;
-    public Text InfinityScore;
-    public Text InfinityTimer;
+    public Text PanelScore;
+    public Text PanelTimer;
 
     public Text ScoreText;
 
@@ -39,7 +39,7 @@ public class Game : MonoBehaviour
 
     bool isGame;
 
-    public MapMaker mapMaker;
+    MapMaker mapMaker;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
         timer = 0.0f;
         WinPanel.SetActive(false);
         LosePanel.SetActive(false);
-        InfinityPanel.SetActive(false);
+        ModeEndPanel.SetActive(false);
         mapMaker = this.GetComponent<MapMaker>();
     }
 
@@ -106,7 +106,7 @@ public class Game : MonoBehaviour
                 LoseGame();
             }
         }
-        if (!mapMaker.RunningTimeAttack && PlayerPrefs.GetInt("Mode") == 3) // 인피니티 모드 게임종료
+        if (!mapMaker.RunningTimeAttack && PlayerPrefs.GetInt("Mode") == 3) // 타임어택 모드 게임종료
         {
             LoseGame();
         }
@@ -124,7 +124,7 @@ public class Game : MonoBehaviour
         GameObject Presult = results.transform.parent.gameObject;
         Destroy(results.gameObject);
 
-        if (PlayerPrefs.GetInt("Mode") == 2) // 인피니티모드
+        if (PlayerPrefs.GetInt("Mode") == 2) // 인피니티모드 슬롯 스폰
         {
             int RanIndex = Random.Range(0, mapMaker.ChooseCandies.Length);
             foreach(Transform tf in Presult.transform.GetComponentInChildren<RectTransform>())
@@ -186,18 +186,8 @@ public class Game : MonoBehaviour
         score += (stack - 2) * 3;
         stack = 1;
     }
-    public void UseMirror(GameObject Mirror)
-    {
-        if (SlotChild > 0)
-        {
-            // 슬롯의 마지막 캔디를 복사함
-            Candies = Instantiate(Slot.transform.GetChild(SlotChild - 1).gameObject, Slot.transform.position, Quaternion.identity, Slot.transform);
-            Candies.GetComponent<BoxCollider2D>().enabled = true;
-            Candies.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
-            Mirror.SetActive(false);
-        }
-    }
+    // 게임 종료 체크
     public void WinGame()
     {
         isGame = false;
@@ -217,38 +207,37 @@ public class Game : MonoBehaviour
                 PlayerPrefs.SetString("timer" + MapMaker.level, timer.ToString("F1"));
             }
         }
-        
-
     }
     public void LoseGame()
     {
         isGame = false;
         Audio.PlayOneShot(LoseSound);
-        if (PlayerPrefs.GetInt("Mode") == 1)
+        if (PlayerPrefs.GetInt("Mode") == 1) // 클래식모드
         {
             LosePanel.SetActive(true);
         }
+        else 
+        {
+            isGame = false;
+            ModeEndPanel.SetActive(true);
 
-        else if (PlayerPrefs.GetInt("Mode") == 2) //무한모드
-        {
-            InfinityEnd();
-        }
-        else if (PlayerPrefs.GetInt("Mode") == 3) //무한모드
-        {
-            InfinityEnd();
-            mapMaker.StopCoroutine("TimeAttack");
+            PanelScore.text = score.ToString();
+            PanelTimer.text = timer.ToString("F1");
+
+            if (PlayerPrefs.GetInt("Mode") == 2) // 무한모드
+            {
+                InfinityEnd(); 
+            }
+            else if (PlayerPrefs.GetInt("Mode") == 3) // 타임어택모드
+            {
+                TimeAttackEnd();
+                mapMaker.StopCoroutine("TimeAttack");
+            }
         }
     }
 
-
     public void InfinityEnd()
     {
-        isGame = false;
-        InfinityPanel.SetActive(true);
-
-        InfinityScore.text = score.ToString();
-        InfinityTimer.text = timer.ToString("F1");
-
         if (!PlayerPrefs.HasKey("scoreInfinity") || PlayerPrefs.GetInt("scoreInfinity") < score)
         {
             PlayerPrefs.SetInt("scoreInfinity", score);
@@ -258,16 +247,25 @@ public class Game : MonoBehaviour
 
     public void TimeAttackEnd()
     {
-        isGame = false;
-        InfinityPanel.SetActive(true);
-
-        InfinityScore.text = score.ToString();
-        InfinityTimer.text = timer.ToString("F1");
-
-        if (!PlayerPrefs.HasKey("scoreInfinity") || PlayerPrefs.GetInt("scoreInfinity") < score)
+        if (!PlayerPrefs.HasKey("timerTimeAttack") || PlayerPrefs.GetInt("timerTimeAttack") > timer)
         {
-            PlayerPrefs.SetInt("scoreInfinity", score);
-            PlayerPrefs.SetString("timerInfinity", timer.ToString("F1"));
+            PlayerPrefs.SetInt("scoreTimeAttack", score);
+            PlayerPrefs.SetString("timerTimeAttack", timer.ToString("F1"));
         }
     }
+
+    // 아이템
+    public void UseMirror(GameObject Mirror)
+    {
+        if (SlotChild > 0)
+        {
+            // 슬롯의 마지막 캔디를 복사함
+            Candies = Instantiate(Slot.transform.GetChild(SlotChild - 1).gameObject, Slot.transform.position, Quaternion.identity, Slot.transform);
+            Candies.GetComponent<BoxCollider2D>().enabled = true;
+            Candies.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+            Mirror.SetActive(false);
+        }
+    }
+
 }

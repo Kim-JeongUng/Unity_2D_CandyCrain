@@ -613,11 +613,11 @@ MonoBehaviour:
   Slot: {fileID: 1069510157}
   WinPanel: {fileID: 2129473313}
   LosePanel: {fileID: 1639324054}
-  InfinityPanel: {fileID: 770763935}
+  ModeEndPanel: {fileID: 770763935}
   WinScore: {fileID: 1576862570}
   WinTimer: {fileID: 1949541617}
-  InfinityScore: {fileID: 1568022337}
-  InfinityTimer: {fileID: 974470490}
+  PanelScore: {fileID: 1568022337}
+  PanelTimer: {fileID: 974470490}
   ScoreText: {fileID: 1364269760}
   BombSound: {fileID: 8300000, guid: ea70d8ed08e0ba148a3d716c17517259, type: 3}
   NonBombSound: {fileID: 8300000, guid: 1e0b1fcd45ff3724fa8bc69f0b804c8c, type: 3}
@@ -625,7 +625,6 @@ MonoBehaviour:
   LoseSound: {fileID: 8300000, guid: cf63bf435f0a99a429b157fd88d19ed4, type: 3}
   Audio: {fileID: 303471326}
   isBombed: 0
-  mapMaker: {fileID: 0}
 --- !u!82 &303471326
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1153,7 +1152,7 @@ GameObject:
   - component: {fileID: 770763938}
   - component: {fileID: 770763937}
   m_Layer: 5
-  m_Name: InfinityEnd
+  m_Name: ModeEndPanel
   m_TagString: GoMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
