@@ -16,6 +16,8 @@ public class TouchEvent : MonoBehaviour
     public GameObject Mirror;
     Game GameManager;
 
+    private RectTransform RectTransform;
+
     void Start()
     {
         gr = canvas.GetComponent<GraphicRaycaster>();
@@ -43,19 +45,26 @@ public class TouchEvent : MonoBehaviour
                 if (results[0].gameObject.CompareTag("Candies") && Game.SlotChild < Game.MaxSlot)
                 {
                     // 클릭된 칼럼의 상단에 있는 캔디 제거
+                    RectTransform = results[0].gameObject.transform.parent.GetChild(0).gameObject.GetComponent<RectTransform>();
+                    StartCoroutine(RectRotation());
                     GameManager.SlotSpawn(results[0].gameObject.transform.parent.GetChild(0).gameObject);
-                    
                 }
                 if (results[0].gameObject.CompareTag("Bomb"))
                 {
+                    RectTransform = results[0].gameObject.GetComponent<RectTransform>();
+                    StartCoroutine(RectRotation());
                     GameManager.CheckBomb();
                 }
                 if (results[0].gameObject.CompareTag("Mirror")) // 아이템
                 {
+                    RectTransform = results[0].gameObject.GetComponent<RectTransform>();
+                    StartCoroutine(RectRotation());
                     this.gameObject.GetComponent<Game>().UseMirror(results[0].gameObject);
                 }
                 if (results[0].gameObject.name == "Reload")
                 {
+                    RectTransform = results[0].gameObject.GetComponent<RectTransform>();
+                    StartCoroutine(RectRotation());
                     SceneManager.LoadScene("GameScene");
                 }
                 if (results[0].gameObject.CompareTag("GoMenu"))
@@ -71,5 +80,12 @@ public class TouchEvent : MonoBehaviour
         {
             SceneManager.LoadScene("LobyScene");
         }
+    }
+
+    IEnumerator RectRotation()
+    {
+        RectTransform.rotation = new Quaternion(0, 0, 1, 20);
+        yield return new WaitForSeconds(0.2f);
+        RectTransform.rotation = new Quaternion(0, 0, 1, -20);
     }
 }

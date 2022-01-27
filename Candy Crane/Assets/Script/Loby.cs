@@ -137,6 +137,11 @@ public class Loby : MonoBehaviour
                 ScoreText[i].text = PlayerPrefs.GetInt("scoreTimeAttack").ToString();
                 TimerText[i].text = PlayerPrefs.GetString("timerTimeAttack").ToString();
             }
+            if(ScoreText[i].text == 0.ToString())
+            {
+                ScoreText[i].text = "No";
+                TimerText[i].text = " Data";
+            }
         }
     }
     public void ResetData()

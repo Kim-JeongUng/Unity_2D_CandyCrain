@@ -122,7 +122,7 @@ public class Game : MonoBehaviour
         Candies.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
         GameObject Presult = results.transform.parent.gameObject;
-        Destroy(results.gameObject);
+        Destroy(results.gameObject, 0.3f);
 
         if (PlayerPrefs.GetInt("Mode") == 2) // 인피니티모드 슬롯 스폰
         {
