@@ -511,6 +511,7 @@ GameObject:
   - component: {fileID: 303471324}
   - component: {fileID: 303471325}
   - component: {fileID: 303471326}
+  - component: {fileID: 303471327}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -598,6 +599,7 @@ MonoBehaviour:
   ClickSound: {fileID: 1143590715}
   canvas: {fileID: 1143590712}
   Mirror: {fileID: 1232855978}
+  admob: {fileID: 0}
 --- !u!114 &303471325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,6 +723,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &303471327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303471321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde5fa7715f2c7e4fbb3177a0fe3eff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &391025120
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +748,7 @@ GameObject:
   - component: {fileID: 391025122}
   m_Layer: 5
   m_Name: Text
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -908,7 +922,7 @@ GameObject:
   - component: {fileID: 541513139}
   m_Layer: 5
   m_Name: Text (1)
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -985,7 +999,7 @@ GameObject:
   - component: {fileID: 572377768}
   m_Layer: 5
   m_Name: Text
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1153,7 +1167,7 @@ GameObject:
   - component: {fileID: 770763937}
   m_Layer: 5
   m_Name: ModeEndPanel
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1337,7 +1351,7 @@ GameObject:
   - component: {fileID: 921311573}
   m_Layer: 5
   m_Name: Text (1)
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1449,7 +1463,7 @@ GameObject:
   - component: {fileID: 944796296}
   m_Layer: 5
   m_Name: Text (2)
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1706,7 +1720,7 @@ GameObject:
   - component: {fileID: 974470490}
   m_Layer: 5
   m_Name: Time
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1818,7 +1832,7 @@ GameObject:
   - component: {fileID: 1121801121}
   m_Layer: 5
   m_Name: Text (2)
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2384,7 +2398,7 @@ GameObject:
   - component: {fileID: 1407683057}
   m_Layer: 5
   m_Name: Text
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2632,7 +2646,7 @@ GameObject:
   - component: {fileID: 1568022337}
   m_Layer: 5
   m_Name: Score
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2709,7 +2723,7 @@ GameObject:
   - component: {fileID: 1576862570}
   m_Layer: 5
   m_Name: Score
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2863,7 +2877,7 @@ GameObject:
   - component: {fileID: 1639324056}
   m_Layer: 5
   m_Name: LosePanel
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2925,6 +2939,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639324054}
   m_CullTransparentMesh: 0
+--- !u!1 &1811659213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1811659214}
+  m_Layer: 0
+  m_Name: Admob
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1811659214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811659213}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.14093, y: 7.716797, z: 97.36719}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1949541615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2938,7 +2982,7 @@ GameObject:
   - component: {fileID: 1949541617}
   m_Layer: 5
   m_Name: Time
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3107,7 +3151,7 @@ GameObject:
   - component: {fileID: 2129473315}
   m_Layer: 5
   m_Name: WinPanel
-  m_TagString: GoMenu
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -35,87 +35,88 @@ public class Loby : MonoBehaviour
         try
         {
             ped.position = Input.mousePosition;
+            past_ped.position = ped.position;
+            List<RaycastResult> results = new List<RaycastResult>();
+            gr.Raycast(ped, results);
+
+            if (results.Count > 0)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    ClickSound.Play();
+                    Debug.Log(results[0]);
+                    if (results[0].gameObject.CompareTag("ClassicMode"))
+                    {
+                        if (!results[0].gameObject.transform.Find("Panel").gameObject.activeSelf) // 클릭 false 상태 일 때
+                        {
+                            results[0].gameObject.transform.Find("Panel").gameObject.SetActive(true);
+                            canvas.transform.Find("Infinity").localPosition = new Vector3(-408, -236, 0);
+                            canvas.transform.Find("TimeAttack").localPosition = new Vector3(-408, -385, 0);
+
+
+                        }
+                        else
+                        {
+                            results[0].gameObject.transform.Find("Panel").gameObject.SetActive(false);
+                            canvas.transform.Find("Infinity").localPosition = new Vector3(-408, 21, 0);
+                            canvas.transform.Find("TimeAttack").localPosition = new Vector3(-408, -128, 0);
+                        }
+                    }
+                    if (results[0].gameObject.CompareTag("Level1"))
+                    {
+                        PlayerPrefs.SetInt("Mode", 1);
+                        PlayerPrefs.SetInt("level", 1);
+                        SceneManager.LoadScene("GameScene");
+                    }
+                    if (results[0].gameObject.CompareTag("Level2"))
+                    {
+                        PlayerPrefs.SetInt("Mode", 1);
+                        PlayerPrefs.SetInt("level", 2);
+                        SceneManager.LoadScene("GameScene");
+                    }
+                    if (results[0].gameObject.CompareTag("Level3"))
+                    {
+                        PlayerPrefs.SetInt("Mode", 1);
+                        PlayerPrefs.SetInt("level", 3);
+                        SceneManager.LoadScene("GameScene");
+                    }
+                    if (results[0].gameObject.CompareTag("InfinityMode"))
+                    {
+                        PlayerPrefs.SetInt("Mode", 2);
+                        PlayerPrefs.SetInt("level", 3);
+                        SceneManager.LoadScene("GameScene");
+                    }
+                    if (results[0].gameObject.CompareTag("TimeAttack"))
+                    {
+                        PlayerPrefs.SetInt("Mode", 3);
+                        PlayerPrefs.SetInt("level", 2);
+                        SceneManager.LoadScene("GameScene");
+                    }
+
+                    if (results[0].gameObject.CompareTag("Record"))
+                    {
+                        RecordPanel.SetActive(true);
+                        PanelWrite();
+                    }
+                    if (results[0].gameObject.CompareTag("RecordPanel"))
+                    {
+                        RecordPanel.SetActive(false);
+                    }
+                    if (results[0].gameObject.CompareTag("Reset"))
+                    {
+                        ResetData();
+                        PanelWrite();
+                    }
+                    if (results[0].gameObject.CompareTag("Help"))
+                    {
+                        Application.OpenURL("https://youtu.be/d8S2b3hhZXc");
+                    }
+                }
+            }
         }
         catch (NullReferenceException ex)
         {
             Debug.Log(ex);
-        }
-        past_ped.position = ped.position;
-        List<RaycastResult> results = new List<RaycastResult>();
-        gr.Raycast(ped, results);
-
-        if (results.Count > 0)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                ClickSound.Play();
-                if (results[0].gameObject.CompareTag("ClassicMode"))
-                {
-                    if (!results[0].gameObject.transform.Find("Panel").gameObject.activeSelf) // 클릭 false 상태 일 때
-                    {
-                        results[0].gameObject.transform.Find("Panel").gameObject.SetActive(true);
-                        canvas.transform.Find("Infinity").localPosition = new Vector3(-408, -236, 0);
-                        canvas.transform.Find("TimeAttack").localPosition = new Vector3(-408, -385, 0);
-
-
-                    }
-                    else
-                    {
-                        results[0].gameObject.transform.Find("Panel").gameObject.SetActive(false);
-                        canvas.transform.Find("Infinity").localPosition = new Vector3(-408, 21, 0);
-                        canvas.transform.Find("TimeAttack").localPosition = new Vector3(-408, -128, 0);
-                    }
-                }
-                if (results[0].gameObject.CompareTag("Level1"))
-                {
-                    PlayerPrefs.SetInt("Mode", 1);
-                    PlayerPrefs.SetInt("level", 1);
-                    SceneManager.LoadScene("GameScene");
-                }
-                if (results[0].gameObject.CompareTag("Level2"))
-                {
-                    PlayerPrefs.SetInt("Mode", 1);
-                    PlayerPrefs.SetInt("level", 2);
-                    SceneManager.LoadScene("GameScene");
-                }
-                if (results[0].gameObject.CompareTag("Level3"))
-                {
-                    PlayerPrefs.SetInt("Mode", 1);
-                    PlayerPrefs.SetInt("level", 3);
-                    SceneManager.LoadScene("GameScene");
-                }
-                if (results[0].gameObject.CompareTag("InfinityMode"))
-                {
-                    PlayerPrefs.SetInt("Mode", 2);
-                    PlayerPrefs.SetInt("level", 3);
-                    SceneManager.LoadScene("GameScene");
-                }
-                if (results[0].gameObject.CompareTag("TimeAttack"))
-                {
-                    PlayerPrefs.SetInt("Mode", 3);
-                    PlayerPrefs.SetInt("level", 2);
-                    SceneManager.LoadScene("GameScene");
-                }
-
-                if (results[0].gameObject.CompareTag("Record"))
-                {
-                    RecordPanel.SetActive(true);
-                    PanelWrite();
-                }
-                if (results[0].gameObject.CompareTag("RecordPanel"))
-                {
-                    RecordPanel.SetActive(false);
-                }
-                if (results[0].gameObject.CompareTag("Reset"))
-                {
-                    ResetData();
-                    PanelWrite();
-                }
-                if (results[0].gameObject.CompareTag("Help"))
-                {
-                    Application.OpenURL("https://youtu.be/d8S2b3hhZXc");
-                }
-            }
         }
     }
     public void PanelWrite()
