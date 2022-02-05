@@ -12,7 +12,7 @@ public class Admob : MonoBehaviour
     private void RequestInterstitial()
     {
 #if UNITY_ANDROID
-    string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+    string adUnitId = "ca-app-pub-4992780716235419/8376657236";
 #elif UNITY_IPHONE
     string adUnitId = "ca-app-pub-3940256099942544/4411468910";
 #else
@@ -47,7 +47,7 @@ public class Admob : MonoBehaviour
     public void HandleOnAdClosed(object sender, System.EventArgs args)
     {
         Debug.Log("Closesd");
-        interstitial.Destroy();
+        this.interstitial.Destroy();
         SceneManager.LoadScene("LobyScene");
     }
 }

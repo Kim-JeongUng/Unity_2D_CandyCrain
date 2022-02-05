@@ -18,6 +18,7 @@ TagManager:
   - InfinityMode
   - TimeAttack
   - ClassicMode
+  - SelectCandies
   layers:
   - Default
   - TransparentFX

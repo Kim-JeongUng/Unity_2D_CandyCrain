@@ -101,7 +101,7 @@ public class Game : MonoBehaviour
             if (this.GetComponent<MapMaker>().ParentCol[i].transform.childCount>0) {
                 break;
             }
-            else if(i== MapMaker.MaxCol-1 && SlotChild>0 && stack<3) // 보드 판이 다 비었지만 슬롯은 차 있는 경우
+            else if(i== MapMaker.MaxCol-1 && SlotChild>0 && stack<3 && PlayerPrefs.GetInt("Mode") != 3) // 보드 판이 다 비었지만 슬롯은 차 있는 경우
             {
                 LoseGame();
             }

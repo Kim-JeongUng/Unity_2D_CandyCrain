@@ -50,20 +50,19 @@ public class TouchEvent : MonoBehaviour
                 
                     if (results[0].gameObject.CompareTag("Candies") && Game.SlotChild < Game.MaxSlot)
                     {
-                        //GameObject topResult = results[0].gameObject.transform.parent.GetChild(0).gameObject;
-    /*
-                        for (int i = 0; i < results[0].gameObject.transform.parent.childCount-1; i++) {
-                            Debug.Log(results[0].gameObject.transform.parent.GetChild(i).rotation.z);
-                            if (results[0].gameObject.transform.parent.GetChild(i).rotation.z == 0)
+                        GameObject SelectCandy = null;
+                        for (int i = 0; i < results[0].gameObject.transform.parent.childCount; i++)
+                        {
+                            if(results[0].gameObject.transform.parent.GetChild(i).gameObject.CompareTag("Candies")) // 선택되지 않은 가장 윗 캔디 선택
                             {
-                                topResult = results[0].gameObject.transform.parent.GetChild(i).gameObject;
-                                // 클릭된 칼럼의 상단에 있는 캔디 제거
+                                results[0].gameObject.transform.parent.GetChild(i).gameObject.tag = "SelectCandies";
+                                SelectCandy = results[0].gameObject.transform.parent.GetChild(i).gameObject;
                                 break;
                             }
-                        }*/
-                        //RectTransform = topResult.GetComponent<RectTransform>();
-                        //StartCoroutine(RectRotation());
-                        GameManager.SlotSpawn(results[0].gameObject.transform.parent.GetChild(0).gameObject);
+                        }
+                        RectTransform = SelectCandy.GetComponent<RectTransform>();
+                        StartCoroutine(RectRotation());
+                        GameManager.SlotSpawn(SelectCandy);
                     }
                     if (results[0].gameObject.CompareTag("Bomb"))
                     {
@@ -85,9 +84,8 @@ public class TouchEvent : MonoBehaviour
                     }
                     if (results[0].gameObject.CompareTag("GoMenu"))
                     {
-                    
+                        canvas.gameObject.SetActive(false);
                         admob.ReplayGame();
-                    
                     }
 
 
@@ -101,7 +99,7 @@ public class TouchEvent : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //SceneManager.LoadScene("LobyScene");
+            SceneManager.LoadScene("LobyScene");
         }
     }
 
