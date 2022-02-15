@@ -85,7 +85,7 @@ public class TouchEvent : MonoBehaviour
                     if (results[0].gameObject.CompareTag("GoMenu"))
                     {
                         canvas.gameObject.SetActive(false);
-                        admob.ReplayGame();
+                        admob.ShowFrontAd();
                     }
 
 

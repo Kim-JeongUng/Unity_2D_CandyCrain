@@ -190,17 +190,17 @@ public class Game : MonoBehaviour
     // 게임 종료 체크
     public void WinGame()
     {
-        isGame = false;
-
-        WinPanel.SetActive(true);
-        Audio.PlayOneShot(WinSound);
-
-        WinScore.text = score.ToString();
-        WinTimer.text = timer.ToString("F1");
-
-        // 데이터 저장
         if(PlayerPrefs.GetInt("Mode")==1)
-        { 
+        {
+            isGame = false;
+
+            WinPanel.SetActive(true);
+            Audio.PlayOneShot(WinSound);
+
+            WinScore.text = score.ToString();
+            WinTimer.text = timer.ToString("F1");
+
+            // 데이터 저장
             if (!PlayerPrefs.HasKey("score" + MapMaker.level) || PlayerPrefs.GetInt("score" + MapMaker.level) < score)
             {
                 PlayerPrefs.SetInt("score" + MapMaker.level, score);
