@@ -118,7 +118,7 @@ public class MapMaker : MonoBehaviour
         {
             for (int i = MaxCol - 1; i >= 0; i--)
             {
-                if (ParentCol[i].transform.childCount >= MaxRow-1)
+                if (ParentCol[i].transform.childCount >= MaxRow) // 최대열을 초과하면
                 {
                     RunningTimeAttack = false;
                 }
