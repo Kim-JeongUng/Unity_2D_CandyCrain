@@ -1,5 +1,5 @@
 # Unity_2D_CandyCrain
-캔디크레인 안드로이드 앱 제작 및 구글플레이스토어 출시
+캔디크레인 안드로이드 앱 제작 및 구글플레이스토어 출시, 구글 애드몹 사용
 
 ### Play Demo
 [FullVideo](https://youtu.be/d8S2b3hhZXc)   
