@@ -1,6 +1,7 @@
 # Unity_2D_CandyCrane
+<img width="5%" src="https://user-images.githubusercontent.com/82865325/172285082-3fbeb8b9-af0b-4171-b64a-576a55b5075c.png"> Download in Playstore : [캔디 크레인](https://play.google.com/store/apps/details?id=com.UngCompany.CandyCrane)<br>
 캔디크레인 안드로이드 앱 제작 및 구글플레이스토어 출시, 구글 애드몹 사용    
-3라인 퍼즐과 유사하지만 다른 방식으로 해결해야 하는 퍼즐형 게임으로 직접 기획하고 구현했습니다.   
+3매치 퍼즐 형식의 게임과 유사하지만 다른 방식으로 해결해야 하는 퍼즐형 게임으로 직접 기획하고 구현했습니다.   
 
 ### Play Demo [FullVideo](https://youtu.be/d8S2b3hhZXc)   
 각 열을 클릭하면 해당 열의 가장 윗 캔디가 슬롯으로 떨어집니다.   
@@ -21,8 +22,6 @@
 
 3개 이상의 캔디를 모으고, 전부 파괴하세요!   
 
-
-<img width="5%" src="https://user-images.githubusercontent.com/82865325/172285082-3fbeb8b9-af0b-4171-b64a-576a55b5075c.png"> Download in Playstore : [캔디 크레인](https://play.google.com/store/apps/details?id=com.UngCompany.CandyCrane)   <br><br>
 
 ### Requirments
 유니티 버전 :  2019.2.21f1   
