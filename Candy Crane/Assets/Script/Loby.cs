@@ -19,6 +19,7 @@ public class Loby : MonoBehaviour
     public Text[] ScoreText;
     public Text[] TimerText;
 
+    public GameObject[] LevelText;
 
     Game GameManager;
 
@@ -47,13 +48,19 @@ public class Loby : MonoBehaviour
                     Debug.Log(results[0]);
                     if (results[0].gameObject.CompareTag("ClassicMode"))
                     {
-                        if (!results[0].gameObject.transform.Find("Panel").gameObject.activeSelf) // 클릭 false 상태 일 때
+                        if (!LevelText[0].gameObject.activeSelf) // 클릭 false 상태 일 때
                         {
-                            results[0].gameObject.transform.Find("Panel").gameObject.SetActive(true);
+                            LevelText[0].gameObject.SetActive(true);
+                            LevelText[1].gameObject.SetActive(true);
+                            LevelText[2].gameObject.SetActive(true);
+                            LevelText[3].gameObject.SetActive(true);
                         }
                         else
                         {
-                            results[0].gameObject.transform.Find("Panel").gameObject.SetActive(false);
+                            LevelText[0].gameObject.SetActive(false);
+                            LevelText[1].gameObject.SetActive(false);
+                            LevelText[2].gameObject.SetActive(false);
+                            LevelText[3].gameObject.SetActive(false);
                         }
                     }
                     if (results[0].gameObject.CompareTag("Level1"))
