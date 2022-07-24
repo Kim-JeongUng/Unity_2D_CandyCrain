@@ -101,7 +101,7 @@ public class Loby : MonoBehaviour
                     }
                     if (results[0].gameObject.CompareTag("RecordPanel"))
                     {
-                        RecordPanel.SetActive(false);
+                        panelClose();
                     }
                     if (results[0].gameObject.CompareTag("Reset"))
                     {
@@ -145,6 +145,11 @@ public class Loby : MonoBehaviour
                 TimerText[i].text = " Data";
             }
         }
+    }
+    public void panelClose()
+    { 
+        if(RecordPanel.activeSelf)
+            RecordPanel.SetActive(false);
     }
     public void ResetData()
     {

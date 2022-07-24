@@ -41,7 +41,6 @@ public class TouchEvent : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    Debug.Log(results[0]);
                     if (!results[0].gameObject.CompareTag("Bomb"))
                     {
                         ClickSound.Play();
