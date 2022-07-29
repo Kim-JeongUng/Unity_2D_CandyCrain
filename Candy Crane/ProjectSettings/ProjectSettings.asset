@@ -239,7 +239,7 @@ PlayerSettings:
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
-  useCustomBaseGradleTemplate: 1
+  useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 1
   useCustomProguardFile: 0
   AndroidTargetArchitectures: 3
@@ -270,7 +270,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 33debe599ba3fb4429d935be830a39b7, type: 3}
+      m_Icon: {fileID: 2800000, guid: 909fec5859ded6c40a646362f4850f80, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
